@@ -2,7 +2,10 @@
   "name": "aoc23",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "start": "nx run-many --target=serve --all --watch=false --output-style=stream",
+    "test": "nx run-many --target=test --all"
+  },
   "private": true,
   "devDependencies": {
     "@nx/esbuild": "17.1.3",

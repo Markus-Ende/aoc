@@ -1,3 +1,5 @@
+import { lines, reverse } from 'utils';
+
 const spelledNumbers = [
   'one',
   'two',
@@ -11,13 +13,13 @@ const spelledNumbers = [
 ];
 
 const spelledNumbersReversed = spelledNumbers.map((spelledNumber) =>
-  spelledNumber.split('').reverse().join('')
+  reverse(spelledNumber)
 );
 
 export function sumOfCalibrationValuesFixed(input: string): number {
   let sum = 0;
 
-  for (const line of input.split('\n')) {
+  for (const line of lines(input)) {
     const firstNumberLeftMatch = line.match(
       /one|two|three|four|five|six|seven|eight|nine|\d/
     )?.[0];
@@ -25,11 +27,9 @@ export function sumOfCalibrationValuesFixed(input: string): number {
       ? spelledNumbers.indexOf(firstNumberLeftMatch) + 1
       : parseInt(firstNumberLeftMatch);
 
-    const firstNumberRightMatch = line
-      .split('')
-      .reverse()
-      .join('')
-      .match(/eno|owt|eerht|ruof|evif|xis|neves|thgie|enin|\d/)?.[0];
+    const firstNumberRightMatch = reverse(line).match(
+      /eno|owt|eerht|ruof|evif|xis|neves|thgie|enin|\d/
+    )?.[0];
     const firstNumberRight = spelledNumbersReversed.includes(
       firstNumberRightMatch
     )
@@ -38,6 +38,5 @@ export function sumOfCalibrationValuesFixed(input: string): number {
 
     sum += firstNumberLeft * 10 + firstNumberRight;
   }
-
   return sum;
 }

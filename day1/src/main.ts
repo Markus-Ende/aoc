@@ -1,9 +1,9 @@
-import * as fs from 'node:fs';
 import { sumOfCalibrationValues } from './part1';
 import { sumOfCalibrationValuesFixed } from './part2';
 import { assert } from 'node:console';
+import { readInput } from 'utils';
 
-const input = fs.readFileSync('./puzzleinput/day1.txt', 'utf8');
+const input = readInput('day1');
 
 const solutionPart1 = sumOfCalibrationValues(input);
 assert(solutionPart1 === 54331);
