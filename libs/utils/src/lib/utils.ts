@@ -6,9 +6,9 @@ import * as fs from 'node:fs';
  * @returns content
  */
 export function readInput(
-  inputName: `day${number}` | `day${number}-${string}`
+  inputName: `${number}-day${number}${'' | `-${string}`}`
 ): string {
-  return fs.readFileSync(`./puzzleinput/${inputName}.txt`, 'utf8');
+  return fs.readFileSync(`./input/${inputName}.txt`, 'utf8');
 }
 
 export function reverse(s: string): string {

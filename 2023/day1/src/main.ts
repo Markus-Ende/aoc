@@ -3,7 +3,7 @@ import { sumOfCalibrationValuesFixed } from './part2';
 import { assert } from 'node:console';
 import { readInput } from 'utils';
 
-const input = readInput('day1');
+const input = readInput('2023-day1');
 
 const solutionPart1 = sumOfCalibrationValues(input);
 assert(solutionPart1 === 54331);

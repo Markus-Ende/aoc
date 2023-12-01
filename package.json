@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "start": "nx run-many --target=serve --all --watch=false --output-style=stream",
-    "test": "nx run-many --target=test --all"
+    "test": "nx run-many --target=test --all",
+    "newday": "bash ./tools/create-day.sh"
   },
   "private": true,
   "devDependencies": {
