@@ -10,40 +10,34 @@ const spelledNumbers = [
   'nine',
 ];
 
+const spelledNumbersReversed = spelledNumbers.map((spelledNumber) =>
+  spelledNumber.split('').reverse().join('')
+);
+
 export function sumOfCalibrationValuesFixed(input: string): number {
   let sum = 0;
 
   for (const line of input.split('\n')) {
-    let lineFromLeft = line;
-    for (let i = 0; i < lineFromLeft.length; i++) {
-      for (const spelledNumber of spelledNumbers) {
-        if (lineFromLeft.startsWith(spelledNumber, i)) {
-          lineFromLeft = lineFromLeft.replace(
-            spelledNumber,
-            `${spelledNumbers.indexOf(spelledNumber) + 1}`
-          );
-        }
-      }
-    }
-    lineFromLeft = lineFromLeft.replace(/[^\d]/g, '');
+    const firstNumberLeftMatch = line.match(
+      /one|two|three|four|five|six|seven|eight|nine|\d/
+    )?.[0];
+    const firstNumberLeft = spelledNumbers.includes(firstNumberLeftMatch)
+      ? spelledNumbers.indexOf(firstNumberLeftMatch) + 1
+      : parseInt(firstNumberLeftMatch);
 
-    let lineFromRight = line;
-    for (let i = lineFromRight.length - 1; i >= 0; i--) {
-      for (const spelledNumber of spelledNumbers) {
-        if (lineFromRight.startsWith(spelledNumber, i)) {
-          lineFromRight = `${lineFromRight.slice(0, i)}${
-            spelledNumbers.indexOf(spelledNumber) + 1
-          }${lineFromRight.slice(i + spelledNumber.length)}`;
-        }
-      }
-    }
-    lineFromRight = lineFromRight.replace(/[^\d]/g, '');
+    const firstNumberRightMatch = line
+      .split('')
+      .reverse()
+      .join('')
+      .match(/eno|owt|eerht|ruof|evif|xis|neves|thgie|enin|\d/)?.[0];
+    const firstNumberRight = spelledNumbersReversed.includes(
+      firstNumberRightMatch
+    )
+      ? spelledNumbersReversed.indexOf(firstNumberRightMatch) + 1
+      : parseInt(firstNumberRightMatch);
 
-    const numberToAdd = parseInt(
-      `${lineFromLeft.at(0)}${lineFromRight.at(-1)}`
-    );
-
-    sum += numberToAdd;
+    sum += firstNumberLeft * 10 + firstNumberRight;
   }
+
   return sum;
 }
