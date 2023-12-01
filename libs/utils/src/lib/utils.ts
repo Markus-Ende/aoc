@@ -26,3 +26,11 @@ export function chars(s: string): string[] {
 export function countChars(s: string, c: string): number {
   return chars(s).filter((char) => char === c).length;
 }
+
+export function sortAsc(...numbers: number[]): number[] {
+  return numbers.sort((a, b) => a - b);
+}
+
+export function sortDesc(...numbers: number[]): number[] {
+  return numbers.sort((a, b) => b - a);
+}

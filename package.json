@@ -6,6 +6,7 @@
     "start": "nx run-many --target=serve --all --watch=false --output-style=stream --no-inspect --no-parallel",
     "watch": "nx affected --target=serve",
     "test": "nx run-many --target=test --all",
+    "test:watch": "nx affected --target=test --watch",
     "newday": "bash ./tools/create-day/create-day.sh"
   },
   "private": true,
