@@ -13,5 +13,13 @@ read -p "Enter day: " day
 # Create a new nx project
 npx nx generate @nx/node:application --name=day-$year-$day --directory=$year/day$day --e2eTestRunner=none --projectNameAndRootFormat=as-provided --no-interactive
 
+cp -r tools/create-day/templates/* $year/day$day/src
+mv $year/day$day/src/day.ts $year/day$day/src/day$day.ts
+mv $year/day$day/src/day.spec.ts $year/day$day/src/day$day.spec.ts
+
+# Replace occurrences of {{year}} with $year and {{day}} with $day in the copied files
+sed -i "s/{{year}}/$year/g" $year/day$day/src/*.*
+sed -i "s/{{day}}/$day/g" $year/day$day/src/*.*
+
 touch input/$year-day$day.txt
 echo add input to input/$year-day$day.txt
