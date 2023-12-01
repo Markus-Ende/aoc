@@ -18,3 +18,11 @@ export function reverse(s: string): string {
 export function lines(s: string): string[] {
   return s.split('\n');
 }
+
+export function chars(s: string): string[] {
+  return Array.from(s);
+}
+
+export function countChars(s: string, c: string): number {
+  return chars(s).filter((char) => char === c).length;
+}
