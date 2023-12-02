@@ -1,5 +1,17 @@
 #!/bin/bash
 
+
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+echo -e "${GREEN}   ^   "
+echo -e "  ^^^  "
+echo -e " ^^^^^ "
+echo -e "^^^^^^^${NC}"
+echo -e "${YELLOW}   |   ${NC}"
+echo
+
 # Check if the nx command is available
 if ! command -v nx &> /dev/null; then
     echo "Error: nx command not found. Please make sure you have nx installed."
