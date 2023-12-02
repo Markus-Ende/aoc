@@ -1,4 +1,3 @@
-import { readInput } from 'utils';
 import { part1, part2 } from './day4';
 
 describe('day4', () => {
