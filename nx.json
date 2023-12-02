@@ -51,7 +51,7 @@
   },
   "workspaceLayout": {
     "appsDir": "packages",
-    "libsDir": "packages"
+    "libsDir": "libs"
   },
   "nxCloudAccessToken": "MTg5ZjZjNzItYzBmYy00OGQ4LThmZjUtMmM2MWVjODM3MGNjfHJlYWQtd3JpdGU="
 }
