@@ -34,4 +34,4 @@ sed -i "s/{{year}}/$year/g" $year/day$day/src/*.*
 sed -i "s/{{day}}/$day/g" $year/day$day/src/*.*
 
 touch input/$year-day$day.txt
-echo add input to input/$year-day$day.txt
+echo Go to https://adventofcode.com/$year/day/$day/input and add your input to input/$year-day$day.txt
