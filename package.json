@@ -1,5 +1,5 @@
 {
-  "name": "aoc23",
+  "name": "aoc",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
@@ -7,6 +7,7 @@
     "watch": "nx affected --target=serve",
     "test": "nx run-many --target=test --all",
     "test:watch": "nx affected --target=test --watch",
+    "lint": "nx run-many --target=lint --all",
     "newday": "bash ./tools/create-day/create-day.sh"
   },
   "private": true,
