@@ -5,7 +5,7 @@ describe('day{{day}}', () => {
   test.each`
     input                    | expected
     ${'{{year}}-day{{day}}'} | ${undefined}
-  `('part1', ({ input, expected }) => {
+  `('part1 $input $expected', ({ input, expected }) => {
     const result = part1(readInput(input));
     expect(result).toEqual(expected);
   });
@@ -13,7 +13,7 @@ describe('day{{day}}', () => {
   test.each`
     input                    | expected
     ${'{{year}}-day{{day}}'} | ${undefined}
-  `('part2', ({ input, expected }) => {
+  `('part2 $input $expected', ({ input, expected }) => {
     const result = part2(readInput(input));
     expect(result).toEqual(expected);
   });
