@@ -22,14 +22,14 @@ export function sumOfCalibrationValuesFixed(input: string): number {
   for (const line of lines(input)) {
     const firstNumberLeftMatch = line.match(
       /one|two|three|four|five|six|seven|eight|nine|\d/
-    )?.[0];
+    )![0];
     const firstNumberLeft = spelledNumbers.includes(firstNumberLeftMatch)
       ? spelledNumbers.indexOf(firstNumberLeftMatch) + 1
       : parseInt(firstNumberLeftMatch);
 
     const firstNumberRightMatch = reverse(line).match(
       /eno|owt|eerht|ruof|evif|xis|neves|thgie|enin|\d/
-    )?.[0];
+    )![0];
     const firstNumberRight = spelledNumbersReversed.includes(
       firstNumberRightMatch
     )

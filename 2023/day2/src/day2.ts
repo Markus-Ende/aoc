@@ -4,14 +4,14 @@ function parseGameLine(line: string): {
   id: number;
   cubes: Map<string, number>;
 } {
-  const id = parseInt(line.match(/Game (\d+):/)?.[1]);
+  const id = parseInt(line.match(/Game (\d+):/)![1]);
   const cubes = new Map<string, number>();
 
   const colors = line.matchAll(/(\d+) (\w+)/g);
   for (const [, amountString, color] of colors) {
     const amount = parseInt(amountString);
 
-    if (!cubes.has(color) || amount > cubes.get(color)) {
+    if (!cubes.has(color) || amount > cubes.get(color)!) {
       cubes.set(color, amount);
     }
   }
@@ -29,7 +29,7 @@ export function part1(input: string): number {
     .filter((game) =>
       Array.from(game.cubes.entries()).every(
         ([color, amount]) =>
-          cubesInBag.has(color) && cubesInBag.get(color) >= amount
+          cubesInBag.has(color) && cubesInBag.get(color)! >= amount
       )
     )
     .reduce((acc, game) => acc + game.id, 0);

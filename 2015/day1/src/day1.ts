@@ -12,4 +12,5 @@ export function part2(input: string): number {
       return i + 1;
     }
   }
+  return -1;
 }
