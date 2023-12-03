@@ -12,7 +12,7 @@ describe('day6', () => {
 
   test.each`
     input          | expected
-    ${'2015-day6'} | ${undefined}
+    ${'2015-day6'} | ${17836115}
   `('part2 $input $expected', ({ input, expected }) => {
     const result = part2(readInput(input));
     expect(result).toEqual(expected);
