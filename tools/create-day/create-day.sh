@@ -18,10 +18,17 @@ if ! command -v nx &> /dev/null; then
     exit 1
 fi
 
+current_year=$(date +%Y)
+current_day=$(date +%-d)
+
+
 # Prompt for project name
-read -p "Enter year: " year
-read -p "Enter day: " day
- 
+read -p "Enter year: (default $current_year)" year
+year=${year:-$current_year}
+
+read -p "Enter day: (default $current_day)" day
+day=${day:-$current_day}
+
 # Create a new nx project
 npx nx generate @nx/node:application --name=day-$year-$day --directory=$year/day$day --e2eTestRunner=none --projectNameAndRootFormat=as-provided --no-interactive
 
