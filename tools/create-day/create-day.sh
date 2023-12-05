@@ -4,6 +4,8 @@ git pull --rebase
 
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
 echo
@@ -44,4 +46,9 @@ sed -i "s/{{year}}/$year/g" $year/day$day/src/*.*
 sed -i "s/{{day}}/$day/g" $year/day$day/src/*.*
 
 touch input/$year-day$day.txt
-echo Go to https://adventofcode.com/$year/day/$day/input and add your input to input/$year-day$day.txt
+touch input/$year-day$day-example.txt
+
+echo Project for day $day of year $year created.
+echo -e Go to ${BLUE}https://adventofcode.com/$year/day/$day/input${NC} and add your input to ${BLUE}input/$year-day$day.txt${NC}
+echo -e Go to ${BLUE}https://adventofcode.com/$year/day/$day${NC} and add your example input to ${BLUE}input/$year-day$day-example.txt${NC}
+echo -e Then open ${BLUE}$year/day$day/src/day$day.spec.ts${NC} and start solving the puzzle: run npm run ${BLUE}test:watch${NC}
