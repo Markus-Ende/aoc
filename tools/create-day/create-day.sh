@@ -1,16 +1,19 @@
 #!/bin/bash
 
+git pull --rebase
 
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
+echo
 echo -e "${GREEN}   ^   "
 echo -e "  ^^^  "
 echo -e " ^^^^^ "
 echo -e "^^^^^^^${NC}"
 echo -e "${YELLOW}   |   ${NC}"
 echo
+
 
 # Check if the nx command is available
 if ! command -v nx &> /dev/null; then
