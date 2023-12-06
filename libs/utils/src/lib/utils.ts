@@ -19,6 +19,10 @@ export function lines(s: string): string[] {
   return s.split('\n');
 }
 
+export function words(s: string): string[] {
+  return s.trim().split(/\s+/).slice(1);
+}
+
 export function chars(s: string): string[] {
   return Array.from(s);
 }
@@ -85,6 +89,44 @@ export function sum(
   }
 }
 
+export function multiply(numbers: number[]): number;
+export function multiply(numbers: IterableIterator<number>): number;
+export function multiply(numbers: string[]): number;
+export function multiply(numbers: { value: number }[]): number;
+export function multiply(numbers: { value: string }[]): number;
+export function multiply(
+  numbers:
+    | number[]
+    | IterableIterator<number>
+    | string[]
+    | { value: number }[]
+    | { value: string }[]
+): number {
+  if (!Array.isArray(numbers)) {
+    numbers = Array.from(numbers);
+  }
+  if (numbers.length === 0) {
+    return 0;
+  }
+  switch (typeof numbers[0]) {
+    case 'number':
+    case 'string':
+      return numbers.reduce((acc: number, n) => acc * Number(n), 1);
+    default: {
+      if (typeof numbers[0].value === 'number') {
+        return numbers.reduce(
+          (acc: number, n) => acc * (n as { value: number }).value,
+          1
+        );
+      }
+      return numbers.reduce(
+        (acc: number, n) => acc * parseInt((n as { value: string }).value),
+        1
+      );
+    }
+  }
+}
+
 export function add<KEYTYPE, VALUETYPE>(
   key: KEYTYPE,
   value: VALUETYPE,
@@ -123,4 +165,11 @@ export function intersection<T>(...sets: Set<T>[] | T[][]): Set<T> {
 
 export function set<T>(s: T[] | Set<T>): Set<T> {
   return Array.isArray(s) ? new Set<T>(s) : s;
+}
+
+export function range(start: number, end: number): number[] {
+  if (start > end) {
+    throw new Error(`start must be smaller than end, was: ${start} ${end}`);
+  }
+  return [...Array(end - start).keys()].map((i) => i + start);
 }
