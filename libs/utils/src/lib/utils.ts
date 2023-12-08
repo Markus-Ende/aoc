@@ -31,6 +31,22 @@ export function countChars(s: string, c: string): number {
   return chars(s).filter((char) => char === c).length;
 }
 
+export function getMostFrequentCharacter(s: string): string {
+  const charCount: Record<string, number> = {};
+  let maxCount = 0;
+  let mostFrequentChar = '';
+
+  for (const char of s) {
+    charCount[char] = (charCount[char] || 0) + 1;
+    if (charCount[char] > maxCount) {
+      maxCount = charCount[char];
+      mostFrequentChar = char;
+    }
+  }
+
+  return mostFrequentChar;
+}
+
 export function sortAsc(...numbers: number[]): number[] {
   return numbers.sort((a, b) => a - b);
 }

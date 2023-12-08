@@ -51,4 +51,4 @@ touch input/$year-day$day-example.txt
 echo Project for day $day of year $year created.
 echo -e Go to ${BLUE}https://adventofcode.com/$year/day/$day/input${NC} and add your input to ${BLUE}input/$year-day$day.txt${NC}
 echo -e Go to ${BLUE}https://adventofcode.com/$year/day/$day${NC} and add your example input to ${BLUE}input/$year-day$day-example.txt${NC}
-echo -e Then open ${BLUE}$year/day$day/src/day$day.spec.ts${NC} and start solving the puzzle: run npm run ${BLUE}test:watch${NC}
+echo -e Then open ${BLUE}$year/day$day/src/day$day.spec.ts${NC} and start solving the puzzle: run ${BLUE}npm run test:watch${NC}
