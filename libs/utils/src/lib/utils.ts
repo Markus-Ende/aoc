@@ -179,6 +179,34 @@ export function intersection<T>(...sets: Set<T>[] | T[][]): Set<T> {
   return result;
 }
 
+/**
+ * least common multiple
+ * @param numbers
+ * @returns
+ */
+export function lcm(numbers: number[]): number {
+  // Helper function to calculate the greatest common divisor (GCD)
+  function calculateGCD(a: number, b: number): number {
+    if (b === 0) {
+      return a;
+    }
+    return calculateGCD(b, a % b);
+  }
+
+  // Helper function to calculate the LCM of two numbers
+  function calculateLCMOfTwoNumbers(a: number, b: number): number {
+    return (a * b) / calculateGCD(a, b);
+  }
+
+  // Calculate the LCM iteratively
+  let lcm = numbers[0];
+  for (let i = 1; i < numbers.length; i++) {
+    lcm = calculateLCMOfTwoNumbers(lcm, numbers[i]);
+  }
+
+  return lcm;
+}
+
 export function set<T>(s: T[] | Set<T>): Set<T> {
   return Array.isArray(s) ? new Set<T>(s) : s;
 }
