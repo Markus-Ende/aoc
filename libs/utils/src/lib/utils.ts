@@ -20,7 +20,7 @@ export function lines(s: string): string[] {
 }
 
 export function words(s: string): string[] {
-  return s.trim().split(/\s+/).slice(1);
+  return s.trim().split(/\s+/);
 }
 
 export function chars(s: string): string[] {

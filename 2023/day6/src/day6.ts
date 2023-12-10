@@ -7,7 +7,7 @@ interface Race {
 
 function parseInput(input: string): Race[] {
   const [times, distances] = lines(input).map((line) =>
-    words(line).map(Number)
+    words(line).slice(1).map(Number)
   );
   return times.map((time, i) => ({ time, distance: distances[i] }));
 }
