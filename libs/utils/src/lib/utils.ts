@@ -217,3 +217,13 @@ export function range(start: number, end: number): number[] {
   }
   return [...Array(end - start).keys()].map((i) => i + start);
 }
+
+export function arr<T>(arrayLikeOrIterable: T[] | IterableIterator<T>): T[] {
+  return Array.from(arrayLikeOrIterable);
+}
+
+export function length(
+  arrayLikeOrIterable: unknown[] | IterableIterator<unknown>
+): number {
+  return arr(arrayLikeOrIterable).length;
+}
