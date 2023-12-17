@@ -1,4 +1,4 @@
-import { add, isNumber, sum } from 'utils';
+import { add, isNumber, rowSize, sum } from 'utils';
 
 function parseMap(
   input: string,
