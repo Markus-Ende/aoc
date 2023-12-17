@@ -1,9 +1,14 @@
-import { chars, lines } from './utils';
+import { chars, lines, reverse } from './utils';
 
 export interface Entry<T> {
   value: T;
   x: number;
   y: number;
+}
+
+export interface NeighborEntry<T> extends Entry<T> {
+  dx: number;
+  dy: number;
 }
 
 export class Matrix<T> {
@@ -57,42 +62,70 @@ export class Matrix<T> {
    * @param withDiagonals Whether to include diagonal neighbors (default: false).
    * @returns An array of neighboring entries.
    */
-  getNeighbors(x: number, y: number, withDiagonals = false): Entry<T>[] {
+  getNeighbors(
+    x: number,
+    y: number,
+    withDiagonals = false
+  ): NeighborEntry<T>[] {
     if (x < 0 || x >= this._rowSize || y < 0 || y >= this._columnSize) {
       throw new Error('Out of bounds');
     }
-    const neighbors: Entry<T>[] = [];
+    const neighbors: NeighborEntry<T>[] = [];
     // top
     if (y > 0) {
-      neighbors.push({ value: this.get(x, y - 1), x, y: y - 1 });
+      neighbors.push({ value: this.get(x, y - 1), x, y: y - 1, dx: 0, dy: -1 });
     }
     // top right
     if (withDiagonals && x < this._rowSize - 1 && y > 0) {
-      neighbors.push({ value: this.get(x + 1, y - 1), x: x + 1, y: y - 1 });
+      neighbors.push({
+        value: this.get(x + 1, y - 1),
+        x: x + 1,
+        y: y - 1,
+        dx: 1,
+        dy: -1,
+      });
     }
     // right
     if (x < this._rowSize - 1) {
-      neighbors.push({ value: this.get(x + 1, y), x: x + 1, y });
+      neighbors.push({ value: this.get(x + 1, y), x: x + 1, y, dx: 1, dy: 0 });
     }
     // bottom right
     if (withDiagonals && x < this._rowSize - 1 && y < this._columnSize - 1) {
-      neighbors.push({ value: this.get(x + 1, y + 1), x: x + 1, y: y + 1 });
+      neighbors.push({
+        value: this.get(x + 1, y + 1),
+        x: x + 1,
+        y: y + 1,
+        dx: 1,
+        dy: 1,
+      });
     }
     // bottom
     if (y < this._columnSize - 1) {
-      neighbors.push({ value: this.get(x, y + 1), x, y: y + 1 });
+      neighbors.push({ value: this.get(x, y + 1), x, y: y + 1, dx: 0, dy: 1 });
     }
     // bottom left
     if (withDiagonals && x > 0 && y < this._columnSize - 1) {
-      neighbors.push({ value: this.get(x - 1, y + 1), x: x - 1, y: y + 1 });
+      neighbors.push({
+        value: this.get(x - 1, y + 1),
+        x: x - 1,
+        y: y + 1,
+        dx: -1,
+        dy: 1,
+      });
     }
     // left
     if (x > 0) {
-      neighbors.push({ value: this.get(x - 1, y), x: x - 1, y });
+      neighbors.push({ value: this.get(x - 1, y), x: x - 1, y, dx: -1, dy: 0 });
     }
     // top left
     if (withDiagonals && x > 0 && y > 0) {
-      neighbors.push({ value: this.get(x - 1, y - 1), x: x - 1, y: y - 1 });
+      neighbors.push({
+        value: this.get(x - 1, y - 1),
+        x: x - 1,
+        y: y - 1,
+        dx: -1,
+        dy: -1,
+      });
     }
 
     return neighbors;
@@ -144,9 +177,13 @@ export class Matrix<T> {
 
   findNeighbor(
     { x, y }: Entry<T>,
-    predicate: (value: Entry<T>) => boolean
-  ): Entry<T> | undefined {
-    const neighbors = this.getNeighbors(x, y);
+    predicate: (value: Entry<T>) => boolean,
+    reverseSearch = false
+  ): NeighborEntry<T> | undefined {
+    let neighbors = this.getNeighbors(x, y);
+    if (reverseSearch) {
+      neighbors = neighbors.reverse();
+    }
     return neighbors.find((entry) => predicate(entry));
   }
 

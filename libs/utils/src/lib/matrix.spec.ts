@@ -41,10 +41,10 @@ describe('Matrix', () => {
       const neighbors = matrix.getNeighbors(2, 2); // M
 
       expect(neighbors).toEqual([
-        { value: 'H', x: 2, y: 1 },
-        { value: 'N', x: 3, y: 2 },
-        { value: 'R', x: 2, y: 3 },
-        { value: 'L', x: 1, y: 2 },
+        { value: 'H', x: 2, y: 1, dx: 0, dy: -1 },
+        { value: 'N', x: 3, y: 2, dx: 1, dy: 0 },
+        { value: 'R', x: 2, y: 3, dx: 0, dy: 1 },
+        { value: 'L', x: 1, y: 2, dx: -1, dy: 0 },
       ]);
     });
 
@@ -54,25 +54,25 @@ describe('Matrix', () => {
       const neighbors = matrix.getNeighbors(1, 1, true);
 
       expect(neighbors).toEqual([
-        { value: 2, x: 1, y: 0 },
-        { value: 3, x: 2, y: 0 },
-        { value: 6, x: 2, y: 1 },
-        { value: 9, x: 2, y: 2 },
-        { value: 8, x: 1, y: 2 },
-        { value: 7, x: 0, y: 2 },
-        { value: 4, x: 0, y: 1 },
-        { value: 1, x: 0, y: 0 },
+        { value: 2, x: 1, y: 0, dx: 0, dy: -1 },
+        { value: 3, x: 2, y: 0, dx: 1, dy: -1 },
+        { value: 6, x: 2, y: 1, dx: 1, dy: 0 },
+        { value: 9, x: 2, y: 2, dx: 1, dy: 1 },
+        { value: 8, x: 1, y: 2, dx: 0, dy: 1 },
+        { value: 7, x: 0, y: 2, dx: -1, dy: 1 },
+        { value: 4, x: 0, y: 1, dx: -1, dy: 0 },
+        { value: 1, x: 0, y: 0, dx: -1, dy: -1 },
       ]);
     });
 
-    it('should return an empty array if the position is out of bounds', () => {
+    it('should return an array with the out of bounds positions', () => {
       const matrix = new Matrix('123\n456\n789', Number);
 
       const neighbors = matrix.getNeighbors(0, 0);
 
       expect(neighbors).toEqual([
-        { value: 2, x: 1, y: 0 },
-        { value: 4, x: 0, y: 1 },
+        { value: 2, x: 1, y: 0, dx: 1, dy: 0 },
+        { value: 4, x: 0, y: 1, dx: 0, dy: 1 },
       ]);
     });
   });
