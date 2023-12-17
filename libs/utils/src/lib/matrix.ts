@@ -1,4 +1,4 @@
-import { chars, lines, reverse } from './utils';
+import { chars, lines } from './utils';
 
 export interface Entry<T> {
   value: T;
@@ -53,6 +53,20 @@ export class Matrix<T> {
 
   getEntry(x: number, y: number): Entry<T> {
     return { value: this.get(x, y), x, y };
+  }
+
+  getRow(y: number): T[] {
+    if (y < 0 || y >= this._columnSize) {
+      throw new Error('Out of bounds');
+    }
+    return this._data[y];
+  }
+
+  getColumn(x: number): T[] {
+    if (x < 0 || x >= this._rowSize) {
+      throw new Error('Out of bounds');
+    }
+    return this._data.map((row) => row[x]);
   }
 
   /**
@@ -173,6 +187,76 @@ export class Matrix<T> {
         }
       }
     }
+  }
+
+  findRow(
+    condition: 'all-cells' | 'some-cells',
+    predicate: (value: T, x: number, y: number) => boolean,
+    start = 0
+  ): number | undefined {
+    if (start < 0 || start >= this._columnSize) {
+      throw new Error('Out of bounds');
+    }
+    for (let y = start; y < this._columnSize; y++) {
+      if (
+        condition === 'all-cells' &&
+        this._data[y].every((value, x) => predicate(value, x, y))
+      ) {
+        return y;
+      }
+      if (
+        condition === 'some-cells' &&
+        this._data[y].some((value, x) => predicate(value, x, y))
+      ) {
+        return y;
+      }
+    }
+    return undefined;
+  }
+
+  findColumn(
+    condition: 'all-cells' | 'some-cells',
+    predicate: (value: T, x: number, y: number) => boolean,
+    start = 0
+  ): number | undefined {
+    if (start < 0 || start >= this._rowSize) {
+      throw new Error('Out of bounds');
+    }
+    for (let x = start; x < this._rowSize; x++) {
+      if (
+        condition === 'all-cells' &&
+        this._data.every((row) => predicate(row[x], x, this._data.indexOf(row)))
+      ) {
+        return x;
+      }
+      if (
+        condition === 'some-cells' &&
+        this._data.some((row) => predicate(row[x], x, this._data.indexOf(row)))
+      ) {
+        return x;
+      }
+    }
+    return undefined;
+  }
+
+  duplicateRow(y: number): Matrix<T> {
+    if (y < 0 || y >= this._columnSize) {
+      throw new Error('Out of bounds');
+    }
+    this._data.splice(y, 0, [...this._data[y]]);
+    this._rowSize++;
+    return this;
+  }
+
+  duplicateColumn(x: number): Matrix<T> {
+    if (x < 0 || x >= this._rowSize) {
+      throw new Error('Out of bounds');
+    }
+    for (let y = 0; y < this._columnSize; y++) {
+      this._data[y].splice(x, 0, this._data[y][x]);
+    }
+    this._columnSize++;
+    return this;
   }
 
   findNeighbor(
