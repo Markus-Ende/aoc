@@ -31,15 +31,37 @@ describe('Matrix', () => {
 
   describe('getNeighbors', () => {
     it('should return the correct neighbors for a given position', () => {
+      const matrix = new Matrix(`ABCDE\nFGHIJ\nKLMNO\nPQRST\nUVWXY`);
+
+      // ABCDE
+      // FGHIJ
+      // KLMNO
+      // PQRST
+      // UVWXY
+      const neighbors = matrix.getNeighbors(2, 2); // M
+
+      expect(neighbors).toEqual([
+        { value: 'H', x: 2, y: 1 },
+        { value: 'N', x: 3, y: 2 },
+        { value: 'R', x: 2, y: 3 },
+        { value: 'L', x: 1, y: 2 },
+      ]);
+    });
+
+    it('should return the correct neighbors including diagonals for a given position', () => {
       const matrix = new Matrix('123\n456\n789', Number);
 
-      const neighbors = matrix.getNeighbors(1, 1);
+      const neighbors = matrix.getNeighbors(1, 1, true);
 
       expect(neighbors).toEqual([
         { value: 2, x: 1, y: 0 },
+        { value: 3, x: 2, y: 0 },
         { value: 6, x: 2, y: 1 },
+        { value: 9, x: 2, y: 2 },
         { value: 8, x: 1, y: 2 },
+        { value: 7, x: 0, y: 2 },
         { value: 4, x: 0, y: 1 },
+        { value: 1, x: 0, y: 0 },
       ]);
     });
 
