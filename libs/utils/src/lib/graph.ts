@@ -24,7 +24,9 @@ export class Graph<T extends { id: string | number }> {
               { id: `(${x},${y}):${value}`, value, x, y },
               {
                 id: `(${neighbor.x},${neighbor.y}):${neighbor.value}`,
-                ...neighbor,
+                value: neighbor.value,
+                x: neighbor.x,
+                y: neighbor.y,
               }
             );
           }

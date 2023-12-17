@@ -46,33 +46,7 @@ describe('Graph', () => {
       { id: '(0,1):3', value: 3, x: 0, y: 1 }
     );
 
-    // expectedGraph.addEdge(
-    //   { id: '(0,2):3', value: 3, x: 0, y: 2 },
-    //   { id: '(1,2):6', value: 6, x: 1, y: 2 }
-    // );
-    // expectedGraph.addEdge(
-    //   { id: '(1,2):6', value: 6, x: 1, y: 2 },
-    //   { id: '(0,2):3', value: 3, x: 0, y: 2 }
-    // );
-    // expectedGraph.addEdge(
-    //   { id: '(1,2):6', value: 6, x: 1, y: 2 },
-    //   { id: '(2,2):9', value: 9, x: 2, y: 2 }
-    // );
-    // expectedGraph.addEdge(
-    //   { id: '(2,2):9', value: 9, x: 2, y: 2 },
-    //   { id: '(1,2):6', value: 6, x: 1, y: 2 }
-    // );
-    // expectedGraph.addEdge(
-    //   { id: '(2,2):9', value: 9, x: 2, y: 2 },
-    //   { id: '(2,1):8', value: 8, x: 2, y: 1 }
-    // );
-    // expectedGraph.addEdge(
-    //   { id: '(2,1):8', value: 8, x: 2, y: 1 },
-    //   { id: '(2,2):9', value: 9, x: 2, y: 2 }
-    // );
-
     const result = Graph.fromMatrix(matrix, edgePredicate);
-    console.log(result);
     expect(result).toEqual(expectedGraph);
   });
 });
