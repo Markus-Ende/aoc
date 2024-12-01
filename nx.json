@@ -46,7 +46,7 @@
       "!{projectRoot}/.eslintrc.json",
       "!{projectRoot}/eslint.config.js"
     ],
-    "sharedGlobals": []
+    "sharedGlobals": ["{workspaceRoot}/.github/workflows/main.yml"]
   },
   "workspaceLayout": {
     "appsDir": "packages",
