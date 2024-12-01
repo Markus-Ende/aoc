@@ -189,15 +189,27 @@ export class Matrix<T> {
     }
   }
 
+  findAll(predicate: (value: T, x: number, y: number) => boolean): Entry<T>[] {
+    const entries: Entry<T>[] = [];
+    for (let y = 0; y < this._columnSize; y++) {
+      for (let x = 0; x < this._rowSize; x++) {
+        if (predicate(this._data[y][x], x, y)) {
+          entries.push({ value: this._data[y][x], x, y });
+        }
+      }
+    }
+    return entries;
+  }
+
   findRow(
     condition: 'all-cells' | 'some-cells',
     predicate: (value: T, x: number, y: number) => boolean,
     start = 0
   ): number | undefined {
-    if (start < 0 || start >= this._columnSize) {
-      throw new Error('Out of bounds');
+    if (start < 0 || start >= this._rowSize) {
+      throw new Error('Out of bounds:' + start + '/' + this._rowSize);
     }
-    for (let y = start; y < this._columnSize; y++) {
+    for (let y = start; y < this._rowSize; y++) {
       if (
         condition === 'all-cells' &&
         this._data[y].every((value, x) => predicate(value, x, y))
@@ -219,10 +231,10 @@ export class Matrix<T> {
     predicate: (value: T, x: number, y: number) => boolean,
     start = 0
   ): number | undefined {
-    if (start < 0 || start >= this._rowSize) {
-      throw new Error('Out of bounds');
+    if (start < 0 || start >= this._columnSize) {
+      throw new Error('Out of bounds:' + start + '/' + this._columnSize);
     }
-    for (let x = start; x < this._rowSize; x++) {
+    for (let x = start; x < this._columnSize; x++) {
       if (
         condition === 'all-cells' &&
         this._data.every((row) => predicate(row[x], x, this._data.indexOf(row)))
@@ -239,23 +251,57 @@ export class Matrix<T> {
     return undefined;
   }
 
+  findColumns(
+    condition: 'all-cells' | 'some-cells',
+    predicate: (value: T, x: number, y: number) => boolean
+  ) {
+    const columns: number[] = [];
+    let start = 0;
+    while (start < this._columnSize) {
+      const index = this.findColumn(condition, predicate, start);
+      if (index === undefined) {
+        break;
+      }
+      columns.push(index);
+      start = index + 1;
+    }
+    return columns;
+  }
+
+  findRows(
+    condition: 'all-cells' | 'some-cells',
+    predicate: (value: T, x: number, y: number) => boolean
+  ) {
+    const rows: number[] = [];
+    let start = 0;
+    while (start < this._rowSize) {
+      const index = this.findRow(condition, predicate, start);
+      if (index === undefined) {
+        break;
+      }
+      rows.push(index);
+      start = index + 1;
+    }
+    return rows;
+  }
+
   duplicateRow(y: number): Matrix<T> {
-    if (y < 0 || y >= this._columnSize) {
-      throw new Error('Out of bounds');
+    if (y < 0 || y >= this._rowSize) {
+      throw new Error('Out of bounds: ' + y + '/' + this._rowSize);
     }
     this._data.splice(y, 0, [...this._data[y]]);
-    this._rowSize++;
+    this._columnSize++;
     return this;
   }
 
   duplicateColumn(x: number): Matrix<T> {
-    if (x < 0 || x >= this._rowSize) {
-      throw new Error('Out of bounds');
+    if (x < 0 || x >= this._columnSize) {
+      throw new Error('Out of bounds: ' + x + '/' + this._columnSize);
     }
     for (let y = 0; y < this._columnSize; y++) {
       this._data[y].splice(x, 0, this._data[y][x]);
     }
-    this._columnSize++;
+    this._rowSize++;
     return this;
   }
 

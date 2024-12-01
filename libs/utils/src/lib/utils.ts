@@ -227,3 +227,16 @@ export function length(
 ): number {
   return arr(arrayLikeOrIterable).length;
 }
+
+export function* combinations<T>(arr: T[], k: number): Generator<T[]> {
+  const f = function* (prefix: T[], arr: T[]): Generator<T[]> {
+    for (let i = 0; i < arr.length; i++) {
+      const combination = [...prefix, arr[i]];
+      if (combination.length === k) {
+        yield combination;
+      }
+      yield* f([...prefix, arr[i]], arr.slice(i + 1));
+    }
+  };
+  yield* f([], arr);
+}

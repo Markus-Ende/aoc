@@ -102,19 +102,19 @@ describe('Matrix', () => {
 
   describe('findColumn', () => {
     it('should return the index of the first column that satisfies the "some-cells" predicate', () => {
-      const matrix = new Matrix('123\n456\n789', Number);
+      const matrix = new Matrix('0123\n4567\n8910', Number);
       const index = matrix.findColumn('some-cells', (value) => value === 4);
 
       expect(index).toBe(0);
     });
 
     it('should return the index of the first column that satisfies the "all-cells" predicate', () => {
-      const matrix = new Matrix('123\n456\n789', Number);
+      const matrix = new Matrix('23\n56\n89', Number);
       const index = matrix.findColumn('all-cells', (value) =>
         [3, 6, 9].includes(value)
       );
 
-      expect(index).toBe(2);
+      expect(index).toBe(1);
     });
 
     it('should return undefined if no column satisfies the predicate', () => {
@@ -130,8 +130,8 @@ describe('Matrix', () => {
       const matrix = new Matrix('123\n456\n789', Number);
       matrix.duplicateRow(1);
 
-      expect(matrix.rowSize).toBe(4);
-      expect(matrix.columnSize).toBe(3);
+      expect(matrix.rowSize).toBe(3);
+      expect(matrix.columnSize).toBe(4);
       expect(matrix.data).toEqual([
         [1, 2, 3],
         [4, 5, 6],
@@ -153,8 +153,8 @@ describe('Matrix', () => {
       const matrix = new Matrix('123\n456\n789', Number);
       matrix.duplicateColumn(1);
 
-      expect(matrix.rowSize).toBe(3);
-      expect(matrix.columnSize).toBe(4);
+      expect(matrix.rowSize).toBe(4);
+      expect(matrix.columnSize).toBe(3);
       expect(matrix.data).toEqual([
         [1, 2, 2, 3],
         [4, 5, 5, 6],
