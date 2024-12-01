@@ -1,4 +1,4 @@
-import { chars, lines } from './utils';
+import { chars, lines, words } from './utils';
 
 export interface Entry<T> {
   value: T;
@@ -11,6 +11,20 @@ export interface NeighborEntry<T> extends Entry<T> {
   dy: number;
 }
 
+export function stringMatrix(
+  s: string,
+  ignoreWhiteSpace = false
+): Matrix<string> {
+  return new Matrix(s, undefined, ignoreWhiteSpace);
+}
+
+export function numberMatrix(
+  s: string,
+  ignoreWhiteSpace = false
+): Matrix<number> {
+  return new Matrix(s, Number, ignoreWhiteSpace);
+}
+
 export class Matrix<T> {
   private _data: T[][];
   private _rowSize: number;
@@ -18,7 +32,8 @@ export class Matrix<T> {
 
   constructor(
     data: string,
-    convert: (char: string) => T = (char) => char as unknown as T
+    convert: (char: string) => T = (char) => char as unknown as T,
+    ignoreWhitespace = false
   ) {
     if (data === '') {
       this._rowSize = 0;
@@ -32,7 +47,13 @@ export class Matrix<T> {
       throw new Error('Matrix is not rectangular');
     }
     this._columnSize = rows.length;
-    this._data = rows.map((line) => chars(line).map(convert));
+    this._data = rows.map((line) => {
+      if (ignoreWhitespace) {
+        return words(line).map(convert);
+      } else {
+        return chars(line).map(convert);
+      }
+    });
   }
 
   get rowSize(): number {
