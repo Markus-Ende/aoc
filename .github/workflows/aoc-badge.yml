@@ -1,0 +1,37 @@
+name: Update AoC Badges
+on:
+  workflow_call:
+    inputs:
+      year:
+        required: true
+        type: string
+    secrets:
+      AOC_SESSION:
+        required: true
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2 # clones your repo
+
+      - uses: joblo2213/aoc-badges-action@v3
+        with:
+          userid: 643064 # your user id, see setup on how to obtain
+          session: ${{ secrets.AOC_SESSION }} # secret containing session code, see setup on how to obtain
+
+          #         Optional inputs:
+          #
+          #         year: 2021                                                                                     # The year for which stats should be retrieved
+          leaderboard: 'https://adventofcode.com/${{inputs.year}}/leaderboard/private/view/652777.json' # The url of the leaderboard from witch the data is fetched. Typically your private leaderboard.
+          starsRegex: '(?<=https:\/\/img\.shields\.io\/badge\/${{inputs.year}}%20stars%20⭐-)[0-9]+(?=-yellow)' # Regular expression that finds the content of the stars badge in your file.
+          daysCompletedRegex: '(?<=https:\/\/img\.shields\.io\/badge\/${{inputs.year}}%20days%20completed-)[0-9]+(?=-red)' # Regular expression that finds the content of the days completed badge iun your file.
+
+      - uses: stefanzweifel/git-auto-commit-action@v4 # Step that pushes these local changes back to your github repo
+        with:
+          commit_message: Update badges
+          file_pattern: README.md

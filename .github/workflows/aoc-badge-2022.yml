@@ -1,0 +1,19 @@
+name: Update AoC Badges 2022
+on:
+  workflow_dispatch: # allow to manually start the workflow
+
+# push: (disabled) run on push, be carefull with this setting
+# as the workflow should only be triggered at a rate lower than
+# 4 times a hour to keep traffic on aoc site low
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  update:
+    uses: ./.github/workflows/aoc-badge.yml
+    with:
+      year: 2022
+    secrets:
+      AOC_SESSION: ${{ secrets.AOC_SESSION }}
