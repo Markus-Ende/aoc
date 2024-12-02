@@ -1,4 +1,4 @@
-[![main](https://github.com/Markus-Ende/aoc/actions/workflows/main.yml/badge.svg)](https://github.com/Markus-Ende/aoc/actions/workflows/main.yml) ![](https://img.shields.io/badge/day%20📅-2-blue) 
+[![main](https://github.com/Markus-Ende/aoc/actions/workflows/main.yml/badge.svg)](https://github.com/Markus-Ende/aoc/actions/workflows/main.yml)
 
 ![](https://img.shields.io/badge/2015%20stars%20⭐-12-yellow)
 ![](https://img.shields.io/badge/2016%20stars%20⭐-0-yellow)
