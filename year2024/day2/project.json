@@ -1,0 +1,68 @@
+{
+  "name": "day-2024-2",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "year2024/day2/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "platform": "node",
+        "outputPath": "dist/year2024/day2",
+        "format": ["cjs"],
+        "bundle": false,
+        "main": "year2024/day2/src/main.ts",
+        "tsConfig": "year2024/day2/tsconfig.app.json",
+        "assets": ["year2024/day2/src/assets"],
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "esbuildOptions": {
+            "sourcemap": false,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "dependsOn": ["build"],
+      "options": {
+        "buildTarget": "day-2024-2:build",
+        "runBuildTargetDependencies": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "day-2024-2:build:development"
+        },
+        "production": {
+          "buildTarget": "day-2024-2:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "year2024/day2/jest.config.ts"
+      }
+    }
+  }
+}

@@ -23,6 +23,10 @@ export function words(s: string): string[] {
   return s.trim().split(/\s+/);
 }
 
+export function numbers(s: string): number[] {
+  return words(s).map(Number);
+}
+
 export function chars(s: string): string[] {
   return Array.from(s);
 }
