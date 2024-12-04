@@ -16,6 +16,22 @@ describe('Matrix', () => {
       ]);
     });
 
+    it('should pad the borders of the matrix with the given value and amount', () => {
+      const matrix = new Matrix('12\n34', Number);
+      matrix.pad(0, 2);
+
+      expect(matrix.rowSize).toBe(6);
+      expect(matrix.columnSize).toBe(6);
+      expect(matrix.data).toEqual([
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 2, 0, 0],
+        [0, 0, 3, 4, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+      ]);
+    });
+
     it('should pad the borders of an empty matrix with the given value', () => {
       const matrix = new Matrix('', Number);
       matrix.pad(0);

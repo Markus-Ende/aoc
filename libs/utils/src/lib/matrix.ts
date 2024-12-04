@@ -170,15 +170,18 @@ export class Matrix<T> {
     this._data[y][x] = value;
   }
 
-  pad(value: T): Matrix<T> {
-    for (let y = 0; y < this._columnSize; y++) {
-      this._data[y].unshift(value);
-      this._data[y].push(value);
+  pad(value: T, amount = 1): Matrix<T> {
+    for (let i = 0; i < amount; i++) {
+      for (let y = 0; y < this._columnSize; y++) {
+        this._data[y].unshift(value);
+        this._data[y].push(value);
+      }
+      this._rowSize += 2;
+      this._data.unshift(Array(this._rowSize).fill(value));
+      this._data.push(Array(this._rowSize).fill(value));
+      this._columnSize += 2;
     }
-    this._rowSize += 2;
-    this._data.unshift(Array(this._rowSize).fill(value));
-    this._data.push(Array(this._rowSize).fill(value));
-    this._columnSize += 2;
+
     return this;
   }
 
@@ -329,13 +332,27 @@ export class Matrix<T> {
   findNeighbor(
     { x, y }: Entry<T>,
     predicate: (value: Entry<T>) => boolean,
-    reverseSearch = false
+    reverseSearch = false,
+    withDiagonals = false
   ): NeighborEntry<T> | undefined {
-    let neighbors = this.getNeighbors(x, y);
+    let neighbors = this.getNeighbors(x, y, withDiagonals);
     if (reverseSearch) {
       neighbors = neighbors.reverse();
     }
     return neighbors.find((entry) => predicate(entry));
+  }
+
+  findAllNeighbors(
+    { x, y }: Entry<T>,
+    predicate: (value: Entry<T>) => boolean,
+    reverseSearch = false,
+    withDiagonals = false
+  ): Array<NeighborEntry<T>> {
+    let neighbors = this.getNeighbors(x, y, withDiagonals);
+    if (reverseSearch) {
+      neighbors = neighbors.reverse();
+    }
+    return neighbors.filter((entry) => predicate(entry));
   }
 
   replace(callback: (value: T, x: number, y: number) => T): Matrix<T> {
