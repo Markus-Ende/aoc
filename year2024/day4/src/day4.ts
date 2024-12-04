@@ -21,14 +21,14 @@ export function part1(input: string): number {
 
           return (
             m.value === 'M' &&
-            matrix.findNeighbor(
+            matrix.hasNeighbor(
               m,
               (a) => {
                 return (
                   a.value === 'A' &&
                   a.x - m.x === deltaX &&
                   a.y - m.y === deltaY &&
-                  matrix.findNeighbor(
+                  matrix.hasNeighbor(
                     a,
                     (s) => {
                       return (
@@ -39,12 +39,12 @@ export function part1(input: string): number {
                     },
                     false,
                     true
-                  ) !== undefined
+                  )
                 );
               },
               false,
               true
-            ) !== undefined
+            )
           );
         },
         false,

@@ -330,16 +330,30 @@ export class Matrix<T> {
   }
 
   findNeighbor(
-    { x, y }: Entry<T>,
+    e: Entry<T>,
     predicate: (value: Entry<T>) => boolean,
     reverseSearch = false,
     withDiagonals = false
   ): NeighborEntry<T> | undefined {
-    let neighbors = this.getNeighbors(x, y, withDiagonals);
-    if (reverseSearch) {
-      neighbors = neighbors.reverse();
-    }
-    return neighbors.find((entry) => predicate(entry));
+    const neighbors = this.findAllNeighbors(
+      e,
+      predicate,
+      reverseSearch,
+      withDiagonals
+    );
+    return neighbors.length > 0 ? neighbors[0] : undefined;
+  }
+
+  hasNeighbor(
+    e: Entry<T>,
+    predicate: (value: Entry<T>) => boolean,
+    reverseSearch = false,
+    withDiagonals = false
+  ): boolean {
+    return (
+      this.findNeighbor(e, predicate, reverseSearch, withDiagonals) !==
+      undefined
+    );
   }
 
   findAllNeighbors(
