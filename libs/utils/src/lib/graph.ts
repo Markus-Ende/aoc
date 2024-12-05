@@ -99,4 +99,18 @@ export class Graph<T extends { id: string | number }> {
   getNodeCount(): number {
     return this._nodes.size;
   }
+
+  toString(): string {
+    return (
+      'Graph\n' +
+      Array.from(this._nodes.entries())
+        .map(
+          (entry) =>
+            `'${entry[0].id}' => ${Array.from(entry[1].values())
+              .map((v) => `'${v.id}'`)
+              .join(',')}`
+        )
+        .join('\n')
+    );
+  }
 }
