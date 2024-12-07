@@ -244,3 +244,22 @@ export function* combinations<T>(arr: T[], k: number): Generator<T[]> {
   };
   yield* f([], arr);
 }
+
+export function combinationsWithRepeat<T>(a: Array<T>, n: number) {
+  const result: Array<Array<T>> = [];
+
+  function generateCombination(currentCombination: Array<T>) {
+    if (currentCombination.length === n) {
+      result.push([...currentCombination]);
+      return;
+    }
+
+    for (let i = 0; i < a.length; i++) {
+      currentCombination.push(a[i]);
+      generateCombination(currentCombination);
+      currentCombination.pop();
+    }
+  }
+  generateCombination([]);
+  return result;
+}
