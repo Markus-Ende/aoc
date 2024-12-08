@@ -389,4 +389,8 @@ export class Matrix<T> {
     matrix._columnSize = this._columnSize;
     return matrix;
   }
+
+  isInBounds(x: number, y: number): boolean {
+    return x >= 0 && x < this._rowSize && y >= 0 && y < this._columnSize;
+  }
 }
