@@ -27,6 +27,9 @@ export class ObjectSet<T extends WithId<unknown>> implements Set<T> {
   has(value: T): boolean {
     return this.map.has(value.id);
   }
+  find(predicate: (o: T) => boolean): T | undefined {
+    return Array.from(this.map.values()).find(predicate);
+  }
   get size() {
     return this.map.size;
   }

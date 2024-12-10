@@ -43,6 +43,7 @@ export function dijkstra<T extends { id: string | number }>(
       const edgeWeight = 1; // Assuming all edges have weight 1
       const totalDistance = minDistance + edgeWeight;
 
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       if (totalDistance < distances.get(neighbor)!) {
         distances.set(neighbor, totalDistance);
       }

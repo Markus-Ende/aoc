@@ -45,6 +45,10 @@ export class Graph<T extends { id: string | number }> {
     return undefined;
   }
 
+  findAllNodes(predicate: (node: T) => boolean): T[] {
+    return Array.from(this._nodes.keys()).filter(predicate);
+  }
+
   addEdge(from: T, to: T): void {
     if (!this._nodes.has(from)) {
       this._nodes.set(from, new ObjectSet<T>());
