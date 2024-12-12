@@ -9,7 +9,7 @@
 ![](https://img.shields.io/badge/2021%20stars%20⭐-0-yellow)
 ![](https://img.shields.io/badge/2022%20stars%20⭐-24-yellow)
 ![](https://img.shields.io/badge/2023%20stars%20⭐-20-yellow)
-![](https://img.shields.io/badge/2024%20stars%20⭐-17-yellow)
+![](https://img.shields.io/badge/2024%20stars%20⭐-18-yellow)
 
 https://adventofcode.com/
 
